@@ -1,9 +1,16 @@
-import React, { Component } from 'react';
+import * as React from 'react';
 import _ from 'lodash';
 
-export default class PageTable extends Component {
+import CommonProps from '../../constants/interfaces';
+import { PageObject } from '../../constants/interfaces';
 
-  handleUpdateClick = (page) => {
+
+export default class PageTable extends React.Component<CommonProps> {
+  constructor(props: CommonProps) {
+    super(props);
+  }
+
+  handleUpdateClick = (page: PageObject) => {
     const { pageStore } = this.props;
     
     pageStore.state.action = 1; // 1 = UPDATE
@@ -28,7 +35,7 @@ export default class PageTable extends Component {
         </thead>
         <tbody>
           {
-            _.map(pageStore.state.pages, (page, index) => (
+            _.map(pageStore.state.pages, (page: PageObject, index: number) => (
               <tr key={ page.id }>
                 <td>{ index + 1 }</td>
                 <td>{ page.title }</td>

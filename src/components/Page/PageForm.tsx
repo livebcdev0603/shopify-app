@@ -1,13 +1,21 @@
-import React, { Component } from 'react';
+import * as React from 'react';
 import { Subscribe } from 'unstated';
 import { Formik } from 'formik';
 import { Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
 
 import PageContainer from '../../containers/PageContainer';
+import { PageObject } from '../../constants/interfaces';
 
-class PageForm extends Component {
 
-  renderFormik = ({ values, errors, touched, handleChange, handleSubmit }) => {
+class PageForm extends React.Component {
+
+  renderFormik = ({ values, errors, touched, handleChange, handleSubmit }: 
+    { values: PageObject, 
+      errors: any, 
+      touched: any, 
+      handleChange: any, 
+      handleSubmit: any
+    }) => {
     return (
       <Form onSubmit={handleSubmit}>
         <FormGroup>
@@ -47,7 +55,7 @@ class PageForm extends Component {
     );
   }
 
-  handleSubmit = (values, pageStore) => {
+  handleSubmit = (values: PageObject, pageStore: PageContainer) => {
     const CREATE_PAGE = 0;    
     const UPDATE_PAGE = 1;    
     let { action } = pageStore.state;
@@ -62,9 +70,10 @@ class PageForm extends Component {
     pageStore.toggleOpenModal()
   }
 
-  handleValidate = values => {
+  handleValidate = (values: PageObject) => {
     // same as above, but feel free to move this into a class method now.
-    let errors = {};
+    let errors: PageObject = { title: '', body_html: '', author: '' };
+    
     if (!values.title) {
       errors.title = 'Required';
     }
@@ -82,10 +91,10 @@ class PageForm extends Component {
     return (
       <Subscribe to={[PageContainer]}>
         {
-          pageStore => <Formik
+          (pageStore: PageContainer) => <Formik
                         initialValues={pageStore.state.currentPage}
-                        validate={this.handleValidate}
-                        onSubmit={values => this.handleSubmit(values, pageStore)}
+                        validate={(values: any) => this.handleValidate(values)}
+                        onSubmit={(values: any) => this.handleSubmit(values, pageStore)}
                         render={this.renderFormik}
                        />
         }

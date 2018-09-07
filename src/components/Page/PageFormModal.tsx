@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { Modal, ModalHeader, ModalBody } from 'reactstrap';
 import { Subscribe } from 'unstated';
 import PageContainer from '../../containers/PageContainer';
@@ -9,7 +9,7 @@ class PageFormModal extends React.Component {
     return (
       <Subscribe to={[PageContainer]}>
         {
-          pageStore => {
+          (pageStore: PageContainer) => {
             let { toggleOpenModal } = pageStore;
             let { pageModal } = pageStore.state;
 

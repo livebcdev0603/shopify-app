@@ -1,3 +1,4 @@
+const path = require('path');
 const webpack = require('webpack');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
@@ -5,7 +6,6 @@ const htmlPlugin = new HtmlWebpackPlugin({
   template: 'public/index.html',
   favicon: 'public/favicon.ico'
 })
-const path = require('path');
 
 module.exports = {
   entry: './src/index.js',
@@ -13,15 +13,10 @@ module.exports = {
     filename: 'bundle.js',
     path: path.resolve(__dirname, 'dist')
   },
-  mode: "production",
+  mode: "development",
   devtool: "source-map",
   module: {
     rules: [
-      {
-        test: /\.svg$/,
-        exclude: /node_modules/,
-        loader: 'file-loader'
-      },
       {
         test: /\.js$/,
         exclude: /node_modules/,
@@ -31,6 +26,11 @@ module.exports = {
             presets: [ "env", "react" ]
           }
         }
+      },
+      {
+        test: /\.svg$/,
+        exclude: /node_modules/,
+        loader: 'file-loader'
       },
       {
         test: /\.css$/,
