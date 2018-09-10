@@ -58,6 +58,7 @@ class PageForm extends React.Component {
   handleSubmit = (values: PageObject, pageStore: PageContainer) => {
     const CREATE_PAGE = 0;    
     const UPDATE_PAGE = 1;    
+
     let { action } = pageStore.state;
 
     if (action === CREATE_PAGE) {
@@ -67,7 +68,7 @@ class PageForm extends React.Component {
       pageStore.updatePage(values);
     }
 
-    pageStore.toggleOpenModal()
+    pageStore.toggleOpenModal();
   }
 
   handleValidate = (values: PageObject) => {
@@ -96,7 +97,7 @@ class PageForm extends React.Component {
                         validate={(values: any) => this.handleValidate(values)}
                         onSubmit={(values: any) => this.handleSubmit(values, pageStore)}
                         render={this.renderFormik}
-                       />
+                      />
         }
       </Subscribe>
     );
